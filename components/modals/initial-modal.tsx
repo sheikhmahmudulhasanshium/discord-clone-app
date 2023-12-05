@@ -24,6 +24,7 @@ import {
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { useEffect, useState } from "react"
+import FileUpload from "../file-upload"
 
 const formSchema=z.object({
     name: z.string().min(1,{
@@ -62,7 +63,15 @@ if(!isMounted){return null}
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                         <div className="px-6 space-y-8">
                             <div className="flex items-center justify-center text-center">
-                                TODO: Image Upload
+                                <FormField 
+                                control={form.control}
+                                name="imageUrl"
+                                render={({field})=>(
+                                    <FormItem>
+                                        <FormControl><FileUpload endpoint="serverImage" value={field.value} onChange={field.onChange}/></FormControl>
+                                    </FormItem>
+                                )}
+                                />
                             </div>
                             <FormField 
                             control={form.control}
