@@ -24,9 +24,9 @@ import {
 
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
-import { useEffect, useState } from "react"
 import FileUpload from "../file-upload"
 import { useRouter } from 'next/navigation'
+import { useModal } from '@/hooks/use-modal-store'
 
 const formSchema=z.object({
     name: z.string().min(1,{
@@ -37,14 +37,16 @@ const formSchema=z.object({
             message: "Server image is required"
         })
 })
-export const InitialModal=()=>{
+
+
+
+export const CreateServerModal=()=>{
     
-    const [isMounted,setIsMounted]=useState(false)
-    
+    const {isOpen,onClose,type}=useModal()
     const router =useRouter()
-    useEffect(()=>{
-        setIsMounted(true)
-    },[])
+    
+    const isModalOpen = isOpen && type==="createServer"
+    
     const form=useForm({
         resolver:zodResolver(formSchema),
         defaultValues:{
@@ -58,16 +60,20 @@ const onSubmit = async (values:z.infer<typeof formSchema>)=>{
         await axios.post("/api/servers",values)
         form.reset()
         router.refresh()
-        window.location.reload()
+        onClose()
+        
     }
     catch(error){
         console.log(error)
  
     }
 }
-if(!isMounted){return null}
+const handleClose=()=>{
+    form.reset()
+    onClose()
+}
     return(
-        <Dialog open>
+        <Dialog open={isModalOpen} onOpenChange={handleClose}>
             <DialogContent className="p-0 overflow-auto text-black bg-white">
                 <DialogHeader className="px-6 pt-8">
                     <DialogTitle className="text-2xl text-center">Customize your server</DialogTitle>
