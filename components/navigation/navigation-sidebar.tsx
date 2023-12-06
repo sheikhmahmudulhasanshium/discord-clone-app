@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import NavigationAction from "./navigation-action";
 import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
-import NavigationItem from "./navigation-item";
+import {NavigationItem} from "./navigation-item";
 import { ModeToggle } from "../mode-toggle";
 import { UserButton } from "@clerk/nextjs";
 
