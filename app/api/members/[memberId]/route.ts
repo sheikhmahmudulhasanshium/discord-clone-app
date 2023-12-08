@@ -1,7 +1,59 @@
 import { currentProfile } from "@/lib/current-profile"
 import { db } from "@/lib/db"
 import { NextResponse } from "next/server"
-
+export async function DELETE(
+  req:Request,
+  {params}:{params:{memberId:string}}
+  ) {
+    try{
+      const profile=await currentProfile()
+      const {searchParams}=new URL(req.url)
+      const serverId=searchParams.get("serverId")
+      if(!profile){
+        return new NextResponse("Unauthorized",{status:401})
+      }
+      if(!serverId){
+        return new NextResponse("Sever Id Missing",{status:400})
+      }
+      if(!params.memberId){
+        return new NextResponse("Member Id Missing",{status:400})
+      }
+      const server=await db.server.update({
+        //updating server where it matches server id where the current user is admin
+        where:{
+          id:serverId,
+          profileId:profile.id,
+        },
+        //looking into the members where it matches member id but avoiding admin himself to kick 
+        data:{
+          members:{
+            deleteMany:{
+              id:params.memberId,
+              //preventing self kicking
+              profileId:{
+                not:profile.id
+              }
+            }
+          }
+        },
+        include:{
+          members:{
+            include:{
+              profile:true,
+            },
+            orderBy:{
+              role:"asc",
+            }
+          }
+        }
+      })
+      return NextResponse.json(server)
+    }catch(error){
+      console.log("[Member_ID_Delete]",error)
+      return new NextResponse("Internal Error",{status:500})
+    }
+  
+}
 export async function PATCH(
     req: Request,
     { params }: { params: { memberId: string } }

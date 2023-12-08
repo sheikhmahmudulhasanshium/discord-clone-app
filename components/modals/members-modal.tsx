@@ -60,7 +60,7 @@ export const MembersModal = () => {
         url: `/api/members/${memberId}`,
         query: {
           serverId: server?.id,
-        },
+         },
       });
 
       const response = await axios.delete(url);
