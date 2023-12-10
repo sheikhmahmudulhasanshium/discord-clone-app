@@ -20,7 +20,7 @@ const ServerMember = ({member,server}:ServerMemberProps) => {
     const router=useRouter()
     const icon=roleIconMap[member.role]
     const onClick=()=>{
-        router.push(`/servers/${params?.serverId}/conversatios/${member.id}`)
+        router.push(`/servers/${params?.serverId}/conversations/${member.id}`)
     }
     return ( 
         <button onClick={onClick}
