@@ -22,6 +22,8 @@ const ServerChannel = ({channel,server,role}:ServerChannelProps) => {
     const params=useParams()
     const router=useRouter()
     const Icon=iconMap[channel.type]
+    
+    
     return ( 
     <button onClick={()=>{}}
     className={cn(
@@ -38,7 +40,8 @@ const ServerChannel = ({channel,server,role}:ServerChannelProps) => {
         {channel.name!=="general"&& role!==MemberRole.GUEST && (
             <div className="flex items-center ml-auto gap-x-2">
                 <ActionTooltip label={"Edit"}>
-                    <Edit className="hidden w-4 h-4 transition group-hover:block text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-100"/>
+                    <Edit onClick={()=>onOpen("editChannel",{server,channel})}
+                    className="hidden w-4 h-4 transition group-hover:block text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-100"/>
                 </ActionTooltip>
                 <ActionTooltip label={"Delete"}>
                     <Trash onClick={()=>onOpen("deleteChannel",{server,channel})}
