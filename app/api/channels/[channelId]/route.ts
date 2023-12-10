@@ -29,9 +29,9 @@ export async function DELETE(
                       profileId: profile.id,
                       role: {
                         in: [MemberRole.ADMIN, MemberRole.MODERATOR],
-                      }
+                      },
                     }
-                  }
+                  },
                 },
                 data: {
                   channels: {
