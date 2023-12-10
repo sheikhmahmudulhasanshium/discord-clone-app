@@ -23,7 +23,7 @@ const servers =await db.server.findMany({
     }
 })
     return ( 
-        <div className="flex flex-col items-center w-full h-full space-y-4 text-primary dark:bg-[#1E1F22] py-3">
+        <div className="flex flex-col items-center w-full h-full space-y-4 text-primary dark:bg-[#1E1F22] py-3 bg-[#EEE5E8]">
             <NavigationAction/>
             <Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700"></Separator>
             <ScrollArea className="flex-1 w-full">
