@@ -15,6 +15,7 @@ import {useForm} from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { useModal } from "@/hooks/use-modal-store";
 
 interface ChatItemProps{
     id:string,
@@ -42,7 +43,7 @@ const formSchema=z.object({
 
 const ChatItem = ({id,content,member,timeStamp,fileUrl,deleted,currentMember,isUpdated,socketUrl,socketQuery}:ChatItemProps) => {
     const [isEditing,setIsEditing]=useState(false)
-    const [isDeleting,setIsDeleting]=useState(false)
+    const {onOpen}=useModal()
     
     const form=useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -175,7 +176,11 @@ const ChatItem = ({id,content,member,timeStamp,fileUrl,deleted,currentMember,isU
                         </ActionTooltip>
                     )}
                     <ActionTooltip label="Delete" >
-                            <Trash className="w-4 h-4 ml-auto transition cursor-pointer text-zinc-500 hover:text-zinc-600 dark:text-zinc-200"/>
+                            <Trash onClick={()=>onOpen("deleteMessage",{
+                                apiUrl: `${socketUrl}/${id}`,
+                                query:socketQuery,
+                            })}
+                                className="w-4 h-4 ml-auto transition cursor-pointer text-zinc-500 hover:text-zinc-600 dark:text-zinc-200"/>
                         </ActionTooltip>
                     
                 </div>
