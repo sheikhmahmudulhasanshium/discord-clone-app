@@ -125,7 +125,7 @@ const role =server.members.find((member)=>member.profileId===profile.id)?.role
                     label="Text Channels"
                     />
                     {textChannels.map((channel)=>(
-                      <div className="space-y-[2px]">
+                      <div className="space-y-[2px]" key={channel.id}>
                         <ServerChannel key={channel.id} channel={channel} role={role}  server={server}/>
                       </div>
                     ))}
@@ -140,7 +140,7 @@ const role =server.members.find((member)=>member.profileId===profile.id)?.role
                     label="Voice Channels"
                     />
                     {audioChannels.map((channel)=>(
-                      <div className="space-y-[2px]">
+                      <div className="space-y-[2px]" key={channel.id}>
                         <ServerChannel key={channel.id} channel={channel} role={role}  server={server}/>
                       </div>
                     ))}
@@ -155,7 +155,7 @@ const role =server.members.find((member)=>member.profileId===profile.id)?.role
                     label="Video Channels"
                     />
                     {videoChannels.map((channel)=>(
-                      <div className="space-y-[2px]">
+                      <div className="space-y-[2px]" key={channel.id}>
 
                         <ServerChannel key={channel.id} channel={channel} role={role}  server={server}/>
                       </div>
@@ -171,7 +171,7 @@ const role =server.members.find((member)=>member.profileId===profile.id)?.role
                     server={server}
                     />
                     {members.map((member)=>(
-                      <div className="space-y-[2px]">
+                      <div className="space-y-[2px]" key={member.id}>
                         <ServerMember key={member.id} 
                         member={member} server={server} />
                       </div>
