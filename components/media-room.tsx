@@ -25,7 +25,7 @@ export const MediaRoom = ({
     if (!user?.firstName || !user?.lastName) return;
 
     const name = `${user.firstName} ${user.lastName}`;
-
+//self executing function
     (async () => {
       try {
         const resp = await fetch(`/api/livekit?room=${chatId}&username=${name}`);
@@ -35,7 +35,7 @@ export const MediaRoom = ({
         console.log(e);
       }
     })()
-  }, [user?.firstName, user?.lastName, chatId]);
+  }, [user?.firstName, user?.lastName, chatId]);//dependency array
 
   if (token === "") {
     return (
