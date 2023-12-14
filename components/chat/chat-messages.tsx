@@ -45,7 +45,7 @@ const ChatMessages = ({name,member,chatId,apiUrl,socketUrl,socketQuery,paramKey,
         count: data?.pages?.[0]?.items?.length ?? 0,
         
     })
-    if(status==="pending"){
+    if(status==="loading"){
         return(
             <div className="flex flex-col items-center justify-center flex-1">
                 <Loader2 className="my-4 h-7 w-7 text-zinc-500 animate-spin"/>
