@@ -10,8 +10,7 @@ const ChatVideoButton = () => {
     const router=useRouter()
     const searchParams=useSearchParams()
     const isVideo=searchParams?.get("video")
-    const Icon= isVideo?VideoOff:Video
-    const tooltipLabel=isVideo? "End video call":"Start video call"
+    
     const onClick=()=>{
         const url=qs.stringifyUrl({
             url: pathname||"",
@@ -21,7 +20,8 @@ const ChatVideoButton = () => {
         },{skipNull:true})
         router.push(url)
     }
-    
+    const Icon= isVideo?VideoOff:Video
+    const tooltipLabel=isVideo? "End video call":"Start video call"
     return ( 
         <ActionTooltip side="bottom" label={tooltipLabel}>
             <button onClick={onClick} className="mr-4 transition hover:opacity-70">
